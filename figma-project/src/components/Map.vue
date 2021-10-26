@@ -15,18 +15,18 @@
         <gmap-map
          :center="myCoordinates"
          :zoom="zoom"
-         style="width: 90%;height: 500px;margin: auto"
+         style="width: 90%;height: 500px;margin: auto;background-repeat: no-repeat"
          ref="myMap"
 
         />
         <label>Lat:</label>
-        <input type="number" v-model="myLng">
+        <input type="number" v-model.number="myLng">
         <label>Lng:</label>
-        <input type="number" v-model="myLat">
+        <input type="number" v-model.number="myLat">
         <label>Zoom</label>
-        <input type="number" v-model="zoom">
+        <input type="number" v-model.number="zoom" >
         <button @click="toCoordinate">To Place</button>
-
+        <button @click="mapTest">MAP TEST</button>
 
     </div>
 </template>
@@ -51,6 +51,9 @@
 
         },
         methods:{
+            mapTest(){
+                console.log(this.map);
+            },
             toCoordinate(){
 
                     this.myCoordinates.lat = Number(this.myLat)
