@@ -2,98 +2,150 @@
     <div class="map-container" id="map">
         <div><span>My Coordinate:
          lat: {{myCoordinates.lat}}  lng : {{myCoordinates.lng}} </span>
-
+         {{this.$store.state.variable}}
         </div>
         <div>
             <h4>Map Coordinate:</h4>
-            <span>Lat:{{mapCoordinate.lat}} Lng: {{mapCoordinate.lng}}</span>
+<!--            <span>Lat:{{mapCoordinate.lat}} Lng: {{mapCoordinate.lng}}</span>-->
         </div>
              <h4>
 
 
              </h4>
         <gmap-map
-         :center="myCoordinates"
+         :center="center"
          :zoom="zoom"
-         style="width: 90%;height: 500px;margin: auto;background-repeat: no-repeat"
+         style="width: 90%;height: 700px;margin: auto;background-repeat: no-repeat"
          ref="myMap"
+         @click="test($event)"
+        >
+            <gmap-marker
+                    v-for="(location,index) in markerLocations" :key="index"
+                    :index="index"
+                    :position="location"
+                    @click="someF(location)"
 
-        />
-        <label>Lat:</label>
-        <input type="number" v-model.number="myLng">
-        <label>Lng:</label>
-        <input type="number" v-model.number="myLat">
-        <label>Zoom</label>
+
+            />
+            <gmap-polyline
+                    :path.sync="markerLocations"
+                     :options="{
+                    strokeColor:'#6C91C2'
+                  }"
+            />
+
+            <gmap-polygon
+                    :path="markerPoligon"
+
+            />
+        </gmap-map>
+
+        <button class="btn" @click="removeLastLocation">Remove Last Location</button>
+
         <input type="number" v-model.number="zoom" >
         <button @click="toCoordinate">To Place</button>
-        <button @click="mapTest">MAP TEST</button>
+
+
 
     </div>
 </template>
 
 <script>
 
+
+
     export default {
         name: "Map",
         data() {
             return {
-                myLat:0,
-                myLng:0,
-                map:null,
+                location:null,
+                markerLocations:[],
+                markerPoligon:null,
                 myCoordinates: {
                     lat: 33,
                     lng: 33,
                 },
-                zoom:4
+                zoom:4,
+                routingService:{},
+                center:{lat:33,lng:33},
+                current:null,
+                map:null,
+
             }
         },
         components:{
 
         },
         methods:{
-            mapTest(){
-                console.log(this.map);
+            removeLastLocation(){
+                this.markerLocations.pop()
             },
+            someF(item){
+               if(this.markerLocations[0] === item){
+                  this.markerLocations.push(item)
+                 this.markerPoligon = this.markerLocations
+                   this.markerLocations = []
+
+               }
+            },
+        test(e){
+            this.location = this.location = this.center  = {
+                lat:e.latLng.lat(),
+                lng:e.latLng.lng()
+            }
+            this.markerLocations.push(this.location)
+        },
+
             toCoordinate(){
 
-                    this.myCoordinates.lat = Number(this.myLat)
-                    this.myCoordinates.lng = Number(this.myLng)
-                    this.zoom = Number(this.zoom)
-                   console.log( this.myCoordinates)
+                    // this.myCoordinates.lat = Number(this.myLat)
+                    // this.myCoordinates.lng = Number(this.myLng)
+                    // this.zoom = Number(this.zoom)
 
 
-
-            }
-        },
-        computed:{
-
+            },
+            poligonF(){
+                if(this.markerLocations[0] === this.location){
+                     this.polegon = this.markerLocations
+                    return this.polegon
+                }
+            },
             mapCoordinate(){
-              if(!this.map){
-                  return {
-                      lat:0,
-                      lng:0
-                  }
-              }
+                if(!this.map){
+                    return {
+                        lat:0,
+                        lng:0
+                    }
+                }
 
-              return {
-                  lat:this.map.getCenter().lat().toFixed(4),
-                  lng:this.map.getCenter().lat().toFixed(4)
-              }
-          }
+                return {
+
+                    lat:this.map.getCenter().lat().toFixed(4),
+                    lng:this.map.getCenter().lat().toFixed(4)
+                }
+            }
         },
         created() {
             this.$getLocation({}).then(coordinates => {
-                   this.myCoordinates = coordinates
-            }
+                    this.myCoordinates = coordinates
+                }
             ).catch(error=>console.log(error))
+
+
         },
+
+
         mounted() {
 
             this.$refs.myMap.$mapPromise.then(map => {
                 this.map = map
                 console.log(this.map)
             })
-        }
+
+
+
+        },
+
     }
 </script>
 

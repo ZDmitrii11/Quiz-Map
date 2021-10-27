@@ -1,8 +1,12 @@
 <!--First Fram From Figma-->
 <template>
     <div class="wrapper">
+        <div style="width: 100px;height: 100px;background-color: yellow">
+
+        </div>
              <Header/>
              <Map/>
+
         </div>
 </template>
 
@@ -10,6 +14,9 @@
 
 import Header from "../components/Header";
 import Map from "../components/Map";
+import {mapGetters} from 'vuex'
+
+// import axios from "axios";
 
 
 
@@ -24,8 +31,10 @@ import Map from "../components/Map";
         Header,Map
         },
         computed:{
+        ...mapGetters(['getUsers'])
 
-
+        },
+        methods:{
 
         },
 
@@ -36,7 +45,14 @@ import Map from "../components/Map";
 
         },
         mounted() {
+            this.$store.dispatch('GET_USERS')
+        },
 
+        watch: {
+            getUsers(newValue) {
+                this.users = newValue
+                console.log('newUs',this.users)
+            }
         }
 
 

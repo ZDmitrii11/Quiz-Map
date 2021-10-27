@@ -13,5 +13,4 @@ app.use(express.json())
 app.use('/api',usersRouter)
 
 
-
 app.listen(PORT,()=>{console.log(`Port Start at ${PORT}`)})

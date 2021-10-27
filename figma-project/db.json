@@ -2,12 +2,6 @@
   "users": [
     {
       "id": 1,
-      "name": "someName",
-      "password": "somePass",
-      "token": "someToken"
-    },
-    {
-      "id": 2,
       "name": "agaravasdf",
       "password": "sdfsdfsdf",
       "token": 1635097845398

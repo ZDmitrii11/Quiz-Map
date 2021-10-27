@@ -73,18 +73,7 @@
                 M.Modal.init(this.$refs.myModal).close()
             },
             Login() {
-
-                try {
-                    axios.post('http://localhost:3030/api/users', {
-                        name: this.user.name,
-                        password: this.user.password
-                    }).then(res => {
-                        console.log(res.data.token)
-                    })
-                } catch
-                    (e) {
-                    console.log(e)
-                }
+              console.log(this.$store.getters.getUsers)
             },
             Register() {
                 if (this.emailregex.test(this.user.name) && this.passwordregex.test(this.user.password) && this.user.name !== '') {
@@ -112,6 +101,7 @@
 
             mounted() {
 
+                this.$store.dispatch('GET_USERS')
                 console.log(this.token)
                 M.Modal.init(this.$refs.myModal)
             }

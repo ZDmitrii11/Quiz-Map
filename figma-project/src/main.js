@@ -2,7 +2,7 @@ import Vue from 'vue'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import App from './App.vue'
 import router from "./router/routers.js"
-import store from '../store/store.index'
+import store from '../store'
 import VueGeolocation from "vue-browser-geolocation/src";
 
 
