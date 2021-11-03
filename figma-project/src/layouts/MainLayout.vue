@@ -5,7 +5,7 @@
 
         </div>
              <Header/>
-<!--             <Map/>-->
+
         <map2/>
 
         </div>
@@ -14,7 +14,6 @@
 <script>
 
 import Header from "../components/Header";
-// import Map from "../components/Map";
 import map2 from "../components/map2"
 import {mapGetters} from 'vuex'
 
