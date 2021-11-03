@@ -2,22 +2,22 @@
     <div class="map-container" id="map">
         <div><span>My Coordinate:
          lat: {{myCoordinates.lat}}  lng : {{myCoordinates.lng}} </span>
-         {{this.$store.state.variable}}
+            {{this.$store.state.variable}}
         </div>
         <div>
             <h4>Map Coordinate:</h4>
-<!--            <span>Lat:{{mapCoordinate.lat}} Lng: {{mapCoordinate.lng}}</span>-->
+            <!--            <span>Lat:{{mapCoordinate.lat}} Lng: {{mapCoordinate.lng}}</span>-->
         </div>
-             <h4>
+        <h4>
 
 
-             </h4>
+        </h4>
         <gmap-map
-         :center="center"
-         :zoom="zoom"
-         style="width: 90%;height: 700px;margin: auto;background-repeat: no-repeat"
-         ref="myMap"
-         @click="test($event)"
+                :center="center"
+                :zoom="zoom"
+                style="width: 90%;height: 700px;margin: auto;background-repeat: no-repeat"
+                ref="myMap"
+                @click="test($event)"
         >
             <gmap-marker
                     v-for="(location,index) in markerLocations" :key="index"
@@ -29,14 +29,13 @@
             />
             <gmap-polyline
                     :path.sync="markerLocations"
-                     :options="{
+                    :options="{
                     strokeColor:'#6C91C2'
                   }"
             />
 
             <gmap-polygon
                     :path="markerPoligon"
-
             />
         </gmap-map>
 
@@ -81,32 +80,31 @@
                 this.markerLocations.pop()
             },
             someF(item){
-               if(this.markerLocations[0] === item){
-                  this.markerLocations.push(item)
-                 this.markerPoligon = this.markerLocations
-                   this.markerLocations = []
-
-               }
+                if(this.markerLocations[0] === item){
+                    this.markerLocations.push(item)
+                    this.markerPoligon = this.markerLocations
+                }
             },
-        test(e){
-            this.location = this.location = this.center  = {
-                lat:e.latLng.lat(),
-                lng:e.latLng.lng()
-            }
-            this.markerLocations.push(this.location)
-        },
+            test(e){
+                this.location = this.location = this.center  = {
+                    lat:e.latLng.lat(),
+                    lng:e.latLng.lng()
+                }
+                this.markerLocations.push(this.location)
+
+            },
 
             toCoordinate(){
 
-                    // this.myCoordinates.lat = Number(this.myLat)
-                    // this.myCoordinates.lng = Number(this.myLng)
-                    // this.zoom = Number(this.zoom)
+                // this.myCoordinates.lat = Number(this.myLat)
+                // this.myCoordinates.lng = Number(this.myLng)
+                // this.zoom = Number(this.zoom)
 
 
             },
             poligonF(){
                 if(this.markerLocations[0] === this.location){
-                     this.polegon = this.markerLocations
+                    this.polegon = this.markerLocations
                     return this.polegon
                 }
             },
@@ -156,3 +154,6 @@
 
     }
 </style>
+
+
+

@@ -5,7 +5,8 @@
 
         </div>
              <Header/>
-             <Map/>
+<!--             <Map/>-->
+        <map2/>
 
         </div>
 </template>
@@ -13,7 +14,8 @@
 <script>
 
 import Header from "../components/Header";
-import Map from "../components/Map";
+// import Map from "../components/Map";
+import map2 from "../components/map2"
 import {mapGetters} from 'vuex'
 
 // import axios from "axios";
@@ -28,7 +30,7 @@ import {mapGetters} from 'vuex'
             }
         },
         components:{
-        Header,Map
+        Header,map2
         },
         computed:{
         ...mapGetters(['getUsers'])
