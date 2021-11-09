@@ -1,12 +1,12 @@
 <!--First Fram From Figma-->
 <template>
     <div class="wrapper">
-        <div style="width: 100px;height: 100px;background-color: yellow">
 
-        </div>
              <Header/>
+        <chartContainer/>
+<!--        <map2/>-->
+<!--        <Map/> -->
 
-        <map2/>
 
         </div>
 </template>
@@ -14,7 +14,11 @@
 <script>
 
 import Header from "../components/Header";
-import map2 from "../components/map2"
+// import map2 from "../components/map2"
+// import Map from "../components/map"
+import chartContainer from "../components/chartContainer";
+
+
 import {mapGetters} from 'vuex'
 
 // import axios from "axios";
@@ -29,7 +33,7 @@ import {mapGetters} from 'vuex'
             }
         },
         components:{
-        Header,map2
+        Header,chartContainer
         },
         computed:{
         ...mapGetters(['getUsers'])
@@ -52,7 +56,6 @@ import {mapGetters} from 'vuex'
         watch: {
             getUsers(newValue) {
                 this.users = newValue
-                console.log('newUs',this.users)
             }
         }
 
@@ -64,6 +67,8 @@ import {mapGetters} from 'vuex'
 
 <style scoped>
     .wrapper{
+        display: flex;
+        flex-direction: column;
         margin: auto;
         width: 1920px;
         height: 5470px;

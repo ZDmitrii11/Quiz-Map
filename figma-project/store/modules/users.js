@@ -16,7 +16,7 @@ export default {
          await   axios.get('http://localhost:3030/api/users').then(
                 res => {
                     commit('USERS', res.data)
-                    console.log('res', res.data)
+
                 }
             )
         }

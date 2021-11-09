@@ -21,9 +21,9 @@
                 :cursor="'default'"
 
         >
-            <div v-for="(markers,index) in objects" :key="markers.id">
+            <div v-for="(markers,index) in objects" :key="index">
                 <gmap-marker
-                        v-for="(marker,markindx) in markers.markers" :key="markindx[index]"
+                        v-for="(marker,markindx) in markers.markers" :key="marker.id"
                         :index="index"
                         :position="marker"
                         :clickable="true"
@@ -44,14 +44,15 @@
                         :path="polegon"
                         getEditable="true"
                         :ref="'poligon[index]'"
+                        @click="testPolegon(markers.id)"
                 />
             </div>
 
 
         </gmap-map>
 
-        <div class="someButtons">
-            <button class="btn-large" @click="removeItem()">Remove Last Item</button>
+        <div class="someButtons" style="display: flex">
+            <button style="margin-left: 33%;" class="btn-large" @click="removeItem()">Remove Last Item</button>
             <button class="btn-large" @click="removePolegon()">Remove Last Polegon</button>
         </div>
 
@@ -61,7 +62,7 @@
 </template>
 
 <script>
-
+    import _ from 'lodash'
 
     export default {
         name: "Map",
@@ -95,7 +96,7 @@
         methods: {
 
             verifyMarker(markersId, item) {
-                 if(this.objects.map(el => {
+                if (this.objects.map(el => {
                         if (el.id === markersId) {
                             if (el.markers[0] === item) {
                                 el.polegon.push(el.markers)
@@ -104,18 +105,17 @@
 
 
                     }
-                ))
-                 {
-                     this.objects.push({
-                             id: markersId + 1,
-                             markers: []    ,
-                             polilenes: [],
-                             polegon: [],
-                         })
-                   console.log(this.objects)
-                 }
+                )) {
+                    this.objects.push({
+                        id: markersId + 1,
+                        markers: [],
+                        polilenes: [],
+                        polegon: [],
+                    })
+                    console.log(this.objects)
+                }
 
-                    },
+            },
             setPolyline(e, id, index) {
 
                 let newMarker = {
@@ -133,66 +133,52 @@
                 })
 
             },
+            testPolegon(item) {
+                console.log(item)
+                console.log(this.objects[item]);
+            },
             removeItem() {
-                this.objects[this.objects.length-1].markers
+                this.objects[this.objects.length - 1].markers
                     .splice(-1)
             },
-            removePolegon(){
-
-                if (this.objects.length === 1)
-                 {
-                    this.objects[0].markers = []
-                    this.objects[0].polegon = []
-                    this.objects[0].polilenes = []
-
-                }
-               else if (this.objects.length === 2){
-                    this.objects.splice(-1)
-                    this.objects[0].markers = []
-                    this.objects[0].polegon = []
-                    this.objects[0].polilenes = []
-               }
-               else if (this.objects.length > 2) {
-
-                   this.objects.splice(-2)
-                    this.objects.push({
-                        id: this.objects.length,
-                        markers: []    ,
-                        polilenes: [],
-                        polegon: [],
-                    })
-                }
-
-                //     && this.objects[this.objects.length-1] ){
-                //     this.objects.splice(-1)
-                //     this.objects[0].markers = []
-                //     this.objects[0].polegon = []
-                //     this.objects[0].polilenes = []
-                //     console.log(this.objects)
-                // }
-                // if (this.objects[this.objects.length-3] === this.objects[0]){
-                //     this.objects.splice(-2)
-                //     this.objects.push({
-                //         id:2,
-                //         markers: []    ,
-                //         polilenes: [],
-                //         polegon: [],
-                //     })
-                //
-                // }
+            removePolegon() {
+               let arr = _.dropRight(this.objects, 2)
+              _.dropRight(this.objects, 2)
+               this.objects = arr
+                this.objects.push({
+                    id:this.objects.length+1,
+                    markers: [],
+                    polilenes:[],
+                    polegon:[]
+                })
 
 
 
             },
+
+
+
+
+
             addMarker(e) {
                 this.location = this.location = this.center = {
                     lat: e.latLng.lat(),
                     lng: e.latLng.lng(),
+
                 }
 
+                this.objects[this.objects.length - 1].markers.push(this.location)
+                if (this.objects.length === 0){
+                    this.objects.push({
+                        id:1,
+                        markers: [],
+                        polilenes:[],
+                        polegon:[]
+                    })
                     this.objects[this.objects.length - 1].markers.push(this.location)
+                }
                     // this.objects[this.objects.length - 1].polilenes.push(this.location)
-
+               this.objects.forEach(el=>console.log(el.id))
 
 
 

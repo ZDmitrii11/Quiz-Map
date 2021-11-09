@@ -25,6 +25,7 @@
     import HeaderContent from "./HeaderContent";
     import HeaderBottom from "./HeaderBottom";
 
+
     export default {
         name: "frame1",
         components: {

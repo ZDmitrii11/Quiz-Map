@@ -3,7 +3,12 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import App from './App.vue'
 import router from "./router/routers.js"
 import store from '../store'
-import VueGeolocation from "vue-browser-geolocation/src";
+import VueGeolocation from "vue-browser-geolocation/src"
+// import Chart from 'chart.js/dist/Chart';
+//
+// Chart.defaults.global.plugins.datalabels.display = false;
+
+
 
 
 Vue.config.productionTip = false
@@ -15,6 +20,7 @@ Vue.use(VueGoogleMaps,{
     installComponents:false,
   },
 })
+
 
 new Vue({
   router,
